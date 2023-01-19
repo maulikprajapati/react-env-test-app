@@ -1,8 +1,11 @@
 import React from 'react';
+import withSuspense from 'helpers/hoc/withSuspense';
 import { createBrowserRouter, Link, Outlet as RouterOutlet } from 'react-router-dom';
+import { ProtectedRoute } from './ProtectedRoute';
 
-const Home = React.lazy(() => import('../screens/Home'));
-const Dashboard = React.lazy(() => import('../screens/Dashobard'));
+const Home = withSuspense(React.lazy(() => import('../screens/Home')));
+const Dashboard = withSuspense(React.lazy(() => import('../screens/Dashobard')));
+const CreateNFT = withSuspense(React.lazy(() => import('../screens/create-nft')));
 
 const router = createBrowserRouter([
   {
@@ -15,6 +18,9 @@ const router = createBrowserRouter([
           <li>
             <Link to={'/nil'}>NIL</Link>
           </li>
+          <li>
+            <Link to={'/create-nft'}>Create NFT</Link>
+          </li>
         </ul>
         <RouterOutlet />
       </div>
@@ -22,18 +28,18 @@ const router = createBrowserRouter([
     children: [
       {
         path: '/',
-        element: (
-          <React.Suspense fallback={<>Loading...</>}>
-            <Home />
-          </React.Suspense>
-        ),
+        element: <Home />,
       },
       {
         path: '/nil',
+        element: <Dashboard />,
+      },
+      {
+        path: '/create-nft',
         element: (
-          <React.Suspense fallback={<>Loading...</>}>
-            <Dashboard />
-          </React.Suspense>
+          <ProtectedRoute>
+            <CreateNFT />
+          </ProtectedRoute>
         ),
       },
     ],

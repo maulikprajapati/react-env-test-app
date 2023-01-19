@@ -1,11 +1,11 @@
 overwrite: true
-schema: "https://api.dev.nxlvl.app/graphql"
-documents: "src/**/*.graphql.ts"
+schema: 'https://api.dev.nxlvl.app/graphql'
+documents: 'src/**/*.graphql.ts'
 generates:
-  src/types/graphql.models.tsx:
+  src/graphql/types/graphql.models.tsx:
     plugins:
       - add:
           content: '/* eslint-disable @typescript-eslint/no-explicit-any */'
-      - "typescript"
-      - "typescript-operations"
-      - "typescript-react-apollo"
+      - 'typescript'
+      - 'typescript-operations'
+      - 'typescript-react-apollo'
